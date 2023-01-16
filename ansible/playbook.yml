@@ -1,0 +1,19 @@
+- name: get configs from remote to local repo
+  hosts: my_host
+  gather_facts: false
+  become: true
+  become_user: "root"
+  become_method: "sudo"
+
+  tasks:
+
+    - name: fetch configs
+      fetch:
+        src: "{{ item }}"
+        dest: "/mnt/d/home/esm/С2-2-3-Task/configs/"
+        flat: true
+      with_items:
+        - "/usr/src/monitor/docker-compose.yml"
+        - "/usr/src/monitor/blackbox/blackbox.yml"
+        - "/usr/src/monitor/prometheus/alert.rules"
+        - "/usr/src/monitor/prometheus/prometheus.yml"
